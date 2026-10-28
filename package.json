@@ -1,0 +1,13 @@
+{
+  "name": "leopoldina-avaliacao-cliente",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "test": "node --test tests/state.test.mjs",
+    "check": "node tools/check.mjs",
+    "test:browser": "node tests/browser.cjs"
+  },
+  "engines": { "node": ">=22" }
+}

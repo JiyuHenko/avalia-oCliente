@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f4ee">
+  <meta name="description" content="Um espaço para escolher, comentar e avaliar os materiais da Joias Leopoldina, no seu ritmo.">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Leopoldina · Seu olhar sobre a marca</title>
+  <link rel="icon" href="./media/favicon.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="site-header">
+    <a class="brand" href="#gallery" aria-label="Leopoldina, início"><img src="./media/wordmark.svg" width="157" height="56" alt="Leopoldina"><span>UM OLHAR SOBRE A MARCA</span></a>
+    <nav class="desktop-nav" aria-label="Modos de avaliação">
+      <button data-nav="gallery" class="nav-item active">Galeria</button>
+      <button data-nav="quick" class="nav-item">Escolha rápida</button>
+      <button data-nav="summary" class="nav-item">Meu parecer <span class="review-count">0</span></button>
+    </nav>
+    <div class="header-actions"><span id="saveStatus" class="save-status" role="status"><i></i> Salvo neste navegador</span><button id="downloadJsonBtn" class="button dark compact" aria-label="Baixar minha avaliação em JSON"><span class="download-icon" aria-hidden="true">↓</span><span class="export-label">Baixar avaliação</span></button></div>
+  </header>
+  <div id="storageWarning" class="storage-warning" role="alert" hidden><p></p><button id="recoverStorageBtn" class="text-button">Reativar salvamento</button><button id="reloadStorageBtn" class="text-button" hidden>Carregar dados desta aba</button></div>
+  <main id="main" tabindex="-1">
+    <section id="galleryView" class="view">
+      <div class="hero">
+        <div class="hero-copy"><p class="eyebrow"><span class="little-line"></span> JOIAS LEOPOLDINA · AVALIAÇÃO CRIATIVA</p><h1>Seu olhar dá forma<br>à <em>próxima etapa.</em></h1><p class="hero-description">Escolha o que combina com a sua marca. Você pode dar notas, deixar ideias ou só marcar as peças que gostaria de usar.</p><div class="hero-actions"><button id="startQuickBtn" class="button dark">Escolher no modo rápido <span aria-hidden="true">↗</span></button><span class="optional-note">Tudo é opcional.<br>Faça no seu ritmo.</span></div></div>
+        <div class="hero-directions" aria-label="As duas direções criadas">
+          <button class="direction-preview" data-direction-pick="A"><span class="direction-heading"><b>A</b><span>PRIMEIRA DIREÇÃO</span><span aria-hidden="true">↗</span></span><img src="./media/thumb/A04.webp" alt="Assinatura da primeira direção em preto sobre marfim" width="560" height="239"><span class="swatches"><i style="--swatch:#171717"></i><i style="--swatch:#F5F0E8"></i><i style="--swatch:#A9ACB0"></i><i style="--swatch:#E8B2AA"></i></span><span class="direction-description">Preto, marfim, prata e salmão</span></button>
+          <button class="direction-preview" data-direction-pick="B"><span class="direction-heading"><b>B</b><span>SEGUNDA DIREÇÃO</span><span aria-hidden="true">↗</span></span><img src="./media/thumb/B01.webp" alt="Cartão da segunda direção em marfim e marrom" width="560" height="392"><span class="swatches"><i style="--swatch:#F5F0E8"></i><i style="--swatch:#D8C6AA"></i><i style="--swatch:#352820"></i></span><span class="direction-description">Marfim, champagne e marrom</span></button>
+          <p>As duas direções podem se encontrar. Você também pode combinar elementos de ambas.</p>
+        </div>
+      </div>
+      <div class="progress-strip"><div><span class="progress-title">SEU PERCURSO</span><strong id="galleryProgress">0 de 77 peças com algum comentário ou escolha</strong></div><div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div><button class="text-button" data-nav="summary">Ver meu parecer <span aria-hidden="true">→</span></button></div>
+      <section class="collection" aria-labelledby="collectionTitle">
+        <div class="collection-heading"><div><p class="eyebrow">O QUE JÁ CRIAMOS</p><h2 id="collectionTitle">Encontre as suas favoritas.</h2></div><button id="toggleFilters" class="button outline small" aria-expanded="false" aria-controls="filterControls">Filtrar peças <span id="filterCount"></span></button></div>
+        <div class="filter-bar"><label class="search-field"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Buscar por peça ou código…" aria-label="Buscar por peça ou código"></label><div class="filter-controls" id="filterControls"><label>Direção<select id="directionFilter"><option value="all">Todas as direções</option><option value="A">A · Primeira direção</option><option value="B">B · Segunda direção</option></select></label><label>Tipo de peça<select id="categoryFilter"><option value="all">Todos os tipos</option><option value="identidade">Identidade e logos</option><option value="embalagens">Embalagens</option><option value="papelaria">Cartões e adesivos</option><option value="digital">Redes sociais</option><option value="videos">Vídeos</option></select></label><label>Minha avaliação<select id="statusFilter"><option value="all">Todas as peças</option><option value="unreviewed">Ainda não avaliei</option><option value="keep">Quero usar</option><option value="adjust">Quero ajustar</option><option value="discard">Prefiro não usar</option><option value="rated">Com nota</option><option value="commented">Com comentário</option></select></label></div></div>
+        <div class="results-line"><span id="resultsCount">77 peças</span><button id="clearFiltersBtn" class="text-button" hidden>Limpar filtros</button></div>
+        <div id="artGrid" class="art-grid"></div><div id="emptyGallery" class="empty-state" hidden><h3>Nenhuma peça por aqui.</h3><p>Tente outra busca ou limpe os filtros.</p><button id="emptyClearBtn" class="button outline">Ver todas as peças</button></div>
+      </section>
+    </section>
+
+    <section id="quickView" class="view quick-view" hidden aria-labelledby="quickTitle">
+      <div class="quick-heading"><div><p class="eyebrow">UMA PEÇA DE CADA VEZ</p><h1 id="quickTitle">Siga a sua intuição.</h1></div><button class="text-button" data-nav="gallery">Voltar à galeria</button></div>
+      <div class="quick-toolbar"><span id="quickCounter">1 de 77</span><span id="quickScope"></span><button id="quickUndo" class="text-button" disabled>↶ Desfazer</button></div>
+      <div id="quickStage"></div>
+      <div id="quickCompleted" class="quick-completed" hidden><div class="complete-mark" aria-hidden="true">✓</div><h2>Uma seleção com a sua cara.</h2><p>Você chegou ao fim desta sequência. As peças puladas continuam disponíveis na galeria.</p><button class="button dark" data-nav="summary">Ver meu parecer</button><button id="restartQuickBtn" class="text-button">Rever esta seleção</button></div>
+      <button class="text-button quick-finish" data-nav="summary">Encerrar por agora e ver meu parecer →</button>
+    </section>
+
+    <section id="summaryView" class="view summary-view" hidden aria-labelledby="summaryTitle">
+      <div class="summary-heading"><p class="eyebrow">SUAS ESCOLHAS, REUNIDAS</p><h1 id="summaryTitle">O próximo passo<br>começa <em>com você.</em></h1><p>Este é o seu parecer até aqui. Você pode continuar avaliando ou baixar o arquivo para enviar ao Matheus.</p></div>
+      <div id="summaryStats" class="summary-stats"></div>
+      <div class="summary-columns"><section class="overview-form"><h2>O que você sentiu?</h2><p class="muted">Um comentário geral também ajuda. Nenhum campo é obrigatório.</p>
+        <fieldset class="direction-fieldset"><legend>Qual direção combina mais com a marca?</legend><div class="direction-options"><button data-preference="A" aria-pressed="false"><b>A</b> Primeira direção</button><button data-preference="B" aria-pressed="false"><b>B</b> Segunda direção</button><button data-preference="mix" aria-pressed="false"><b>A+B</b> Uma mistura das duas</button></div><p class="micro">Clique novamente para deixar em aberto.</p></fieldset>
+        <label class="field-label" for="overallComment">O que gostaria de manter ou mudar?</label><textarea id="overallComment" rows="6" maxlength="10000" placeholder="Cores que gostou, detalhes que quer mudar, ideias para a próxima etapa…"></textarea>
+        <div class="summary-download"><button id="summaryExportBtn" class="button dark">Baixar minha avaliação <span aria-hidden="true">↓</span></button><p>Um arquivo JSON com suas escolhas, notas e comentários. Depois, é só enviá-lo ao Matheus.</p></div>
+        <div class="backup-panel"><h3>Seu parecer fica com você.</h3><p>O progresso é salvo neste aparelho e navegador. Não é enviado automaticamente. Baixe o JSON para guardar uma cópia ou continuar em outro aparelho.</p><button id="importBtn" class="button outline small">Importar uma avaliação</button><button id="resetBtn" class="text-button danger-text">Limpar minhas avaliações</button></div>
+      </section><section class="your-pieces"><div class="your-pieces-heading"><h2>Seu olhar, peça a peça.</h2><span id="summaryCount"></span></div><div id="summaryList"></div><div id="emptySummary" class="empty-state" hidden><span aria-hidden="true">♡</span><h3>Comece por uma peça.</h3><p>Suas escolhas, notas e comentários aparecem aqui. Você não precisa avaliar tudo.</p><button class="button outline" data-nav="gallery">Explorar a galeria</button></div></section></div>
+    </section>
+    <footer class="site-footer"><span>LEOPOLDINA · AVALIAÇÃO CRIATIVA</span><p>Avalie só o que quiser. Seu progresso é salvo neste navegador; o JSON é a cópia que você compartilha.</p><a href="#summary" data-nav="summary">Retomar ou importar avaliação</a></footer>
+  </main>
+  <nav class="mobile-nav" aria-label="Navegação principal"><button data-nav="gallery" class="active"><span aria-hidden="true">▦</span>Galeria</button><button data-nav="quick"><span aria-hidden="true">⇄</span>Escolha rápida</button><button data-nav="summary"><span aria-hidden="true">♡</span>Meu parecer <b class="review-count">0</b></button></nav>
+
+  <dialog id="detailDialog" class="detail-dialog"><div class="dialog-top"><span id="detailCode" class="code-badge"></span><button class="icon-button" data-close="detailDialog" aria-label="Fechar peça">×</button></div><div class="detail-layout"><div id="detailMedia" class="detail-media"></div><div class="detail-feedback"><p id="detailDirection" class="eyebrow"></p><h2 id="detailTitle"></h2><p id="detailNote" class="muted"></p><div id="detailRating"></div><p class="field-label">O que você prefere?</p><div id="detailDecisions"></div><label for="itemComment" class="field-label">Seu comentário <span>(opcional)</span></label><textarea id="itemComment" rows="6" maxlength="10000" placeholder="O que gostou? O que mudaria nesta peça?"></textarea><p class="micro">Salvamos enquanto você escreve.</p><button class="button dark wide" data-close="detailDialog">Concluir</button></div></div></dialog>
+  <dialog id="exportDialog" class="small-dialog"><button class="icon-button dialog-close" data-close="exportDialog" aria-label="Fechar exportação">×</button><p class="eyebrow">SUA AVALIAÇÃO</p><h2>Pronta para compartilhar.</h2><p>Tudo o que você preencheu vai neste arquivo. As peças sem avaliação ficam em aberto.</p><div id="exportStats" class="export-stats"></div><button id="confirmExportBtn" class="button dark wide">Baixar arquivo JSON <span aria-hidden="true">↓</span></button><button id="shareExportBtn" class="button outline wide" hidden>Compartilhar arquivo</button><p class="micro">Depois de baixar, envie o arquivo ao Matheus. Você pode continuar avaliando e baixar uma nova cópia quando quiser.</p></dialog>
+  <dialog id="importDialog" class="small-dialog"><button class="icon-button dialog-close" data-close="importDialog" aria-label="Fechar importação">×</button><p class="eyebrow">RETOMAR AVALIAÇÃO</p><h2>Suas escolhas, de volta.</h2><div id="importPreview"></div><fieldset class="import-options"><legend>Como deseja importar?</legend><label><input type="radio" name="importMode" value="merge" checked> Mesclar com minhas avaliações atuais</label><label><input type="radio" name="importMode" value="replace"> Substituir as avaliações deste navegador</label></fieldset><button id="confirmImportBtn" class="button dark wide">Importar avaliação</button></dialog>
+  <dialog id="resetDialog" class="small-dialog"><button class="icon-button dialog-close" data-close="resetDialog" aria-label="Cancelar limpeza">×</button><p class="eyebrow">RECOMEÇAR</p><h2>Limpar este parecer?</h2><p>Isso remove as escolhas, notas e comentários salvos neste navegador. Baixe uma cópia antes de recomeçar, se quiser guardá-los.</p><button id="resetExportBtn" class="button outline wide">Baixar uma cópia primeiro</button><button id="confirmResetBtn" class="button danger wide">Limpar e recomeçar</button><button class="text-button wide" data-close="resetDialog">Cancelar</button></dialog>
+  <input id="importFile" type="file" accept="application/json,.json" hidden>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">Ative o JavaScript para visualizar as peças e salvar sua avaliação neste navegador.</p></noscript>
+</body>
+</html>
